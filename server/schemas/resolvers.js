@@ -49,17 +49,20 @@ const resolvers = {
         },
 
         saveBook: async (parent, args, context) => {
-            if(context.user) {
-                const updatedUser = await User.findOneAndUpdate(
-                    { _id: context.user._id },
-                    { $addToSet: { savedBooks: args.input } },
-                    { new: true, runValidators: true },
-                );
-                return updatedUser;
+            // If context has a `user` property, that means the user executing this mutation has a valid JWT and is logged in
+            if (context.user) {
+              const updatedUser = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                // Pushes a book to an array of books associated with this user
+                { $addToSet: { savedBooks: args.input } },
+                { new: true, runValidators: true }
+              );
+              return updatedUser;
             }
-
+      
+            // If user attempts to execute this mutation and isn't logged in, throw an error
             throw new AuthenticationError("You need to be logged in!");
-        },
+          },
 
         removeBook: async (parent, args, context) => {
             if (context.user) {
