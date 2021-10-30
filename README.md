@@ -48,6 +48,8 @@ Users need to sign up to save their favorite books to their book list and search
 
 ![Website View](./images/Google-Book-Search1.png)
 
+![Website View](./images/Google-Book-Search2.png)
+
 ## How to Contribute :
 
 Any contributions are welcome!
